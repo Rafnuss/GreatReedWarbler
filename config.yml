@@ -5,48 +5,44 @@
 # the config R package <https://rstudio.github.io/config/>.
 #
 # This file is meant to be adapted based on your needs: feel free to add parameters either in the
-# default (applied to all tags) or for each tag separately (overwrite default). It is recommended to
+# default (applied to all tags) or for each tag seperatly (overwrite default). It is recommended to
 # specify all parameters used, even if you use the default value.
 #
 # You can check the documentation of each function to learn what each of these parameters are doing
 # as well as reading https://raphaelnussbaumer.com/GeoPressureManual/geopressuretemplate-workflow.html
 
 default:
-  tag_create: # ?tag_create()
-    # crop_start: NULL # Generally set at the tag level
-    # crop_end: NULL
-  tag_set_map: # ?tag_set_map()
-    extent: [-16, 23, 0, 50] # [W, E, S, N]
-    scale: 5 # 1 (min) -> 1° ; 2 -> 0.5° ; 5 -> 0.2° ; 10 (max) -> 0.1°
-    include_stap_id: NULL # default, take all
-    include_min_duration: 0 # in hours
+  tag_label: # ? tag_label()
+    warning_flight_duration: 2 # hours
+    warning_stap_duration: 6 # hours
+  bird_create:
+    scientific_name: "Acrocephalus arundinaceus"
   geopressure_map: # ?geopressure_map()
     max_sample: 250
-    margin: 20 # in m
-    sd: 1
+    margin: 10 # in m
+    sd: 1.5
     thr_mask: 0.9
-    log_linear_pooling_weight: !expr \(n) log(n)/n
+    log_linear_pooling_weight: !expr \(n) 3*log(n)/n
   twilight_create: # ?twilight_create()
     # twl_thr: NULL
-    # twl_offset: NULL # in hours
+    twl_offset: -1
   geolight_map: # ?geolight_map()
-    twl_calib_adjust: 1.4
-    twl_llp: !expr \(n) log(n)/n
-    fitted_location_duration: Inf
+    twl_calib_adjust: 1.6
+    twl_llp: !expr \(n) 1/3*log(n)/n
   graph_create: # ?graph_create()
     thr_likelihood: 0.99
-    thr_gs: 150 # km/h
+    thr_gs: 130 # km/h
     # likelihood: NULL # Best to leave NULL.
   graph_add_wind:
     thr_as: 90 # km/h
   graph_set_movement: # ?graph_set_movement()
-    type: "gs" # modify manually to "as" when you have downloaded wind data
-    # method: "gamma"
-    # shape: 7 # only for gamma
-    # scale: 7
-    # location: 40 # only for logistic
-    # low_speed_fix: 15 # km/h
-    # zero_speed_ratio: 1
+    type: "as"
+    #method: "gamma"
+    #shape: 7 # only for gamma
+    #scale: 7
+    #location: 40 # only for logistic
+    #low_speed_fix: 15 # km/h
+    zero_speed_ratio: 1.3
   graph_simulation: # ?graph_simulation()
     nj: 10
   pressurepath_create: # ?pressurepath_create()
@@ -56,28 +52,511 @@ default:
     likelihood: ["map_pressure", "map_light"]
     outputs: ["marginal", "most_likely", "simulation"]
     pressurepath: ["most_likely"] # "geopressureviz"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    scale: 5
+    include_stap_id: NULL # default, take all
+    include_min_duration: 0 # in hours
 
-18LX:
+
+
+14AZ:
+  run: false
+  tag_comments: "apparent time shift during two time series, including a shorter shift in autumn and a long drift in the second part of the recording. cannot be fixed because after a short part in September there is gradual shift towards the end of the cycle" #
+  tag_create:
+    crop_start: "2015-07-15"
+    crop_end: "2016-06-08"
+  tag_set_map:
+     extent: [-5, 60, -30, 60] # [W, E, S, N]
+     known:
+      stap_id: [1, -1]
+      known_lon: 26.45
+      known_lat: 44.00
+
+
+14ES:
+  tag_create:
+    crop_start: "2015-07-15"
+    crop_end: "2016-06-08"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14FF:
+  tag_create:
+    crop_start: "2015-07-15"
+    crop_end: "2016-05-29"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14GD:
+  tag_create:
+    crop_start: "2015-07-01"
+    crop_end: "2016-05-16"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14GF:
+  tag_create:
+    crop_start: "2015-07-15"
+    crop_end: "2016-06-05"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14GG:
+  tag_comments: "it seems there is no apparent drift"
+  tag_create:
+    crop_start: "2015-07-01"
+    crop_end: "2016-04-29"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: 1
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14GH:
+  tag_comments: "drift reported but works."
+  tag_create:
+    crop_start: "2015-06-01"
+    crop_end: "2016-05-06"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14GS:
+  tag_comments: "reported irregularities, works"
+  tag_create:
+    crop_start: "2015-07-15"
+    crop_end: "2016-05-06"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14GW:
+  tag_comments: "no light data. the light data seemed not to work?"
+  tag_create:
+    crop_start: "2015-07-15"
+    crop_end: "2016-05-29"
+    light_file: ""
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+  geopressuretemplate:
+    likelihood: ["map_pressure"] #pressure only
+
+
+14HA:
+  tag_create:
+    crop_start: "2015-07-01"
+    crop_end: "2016-05-06"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14HB:
+  tag_comments: "incomplete track, stops in April"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: 1
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14HC:
+  tag_create:
+    crop_start: "2015-07-01"
+    crop_end: "2016-05-29"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14HT:
+  tag_comments: "partial track"
+  tag_create:
+    crop_start: "2015-07-15"
+    crop_end: "2016-04-13"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: 1
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14SD:
+  run: FALSE
+  tag_comments: "pressure faulty"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+14SF:
+  run: FALSE
+  tag_comments: "pressure faulty"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+14SZ:
+  run: FALSE
+  tag_comments: "pressure faulty"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+14TC:
+  run: FALSE
+  tag_comments: "pressure faulty"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+14TF:
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-03-24"
+  tag_set_map:
+    extent: [-10, 55, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: 1
+        known_lon: 17.05
+        known_lat: 48.90
+
+
+14TS:
+  tag_comments: "light data for the two longest non-breeding periods were discarded to ensure correct geolocation with pressure"
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-05-02"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+14TZ:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-05-02"
+  geopressure_map:
+    keep_mask: true
+    keep_mse: true
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+16BR:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-06-18"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+16ER:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-07-07"
+    crop_end: "2017-05-10 12:00:00"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 20.73
+        known_lat: 55.09
+
+
+16EA:
+  run: FALSE
+  tag_comments: "no pressure data" # provide more detail on the reason
+  tag_create:
+    crop_start: "2016-05-20"
+    crop_end: "2017-03-23"
+    assert_pressure: FALSE
+    pressure_file: ""
+
+16ET:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-27"
+    crop_end: "2017-05-22 06:00:00"
+
+
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: 1
+        known_lon: 20.73
+        known_lat: 55.09
+
+
+16EY:
+  run: FALSE
+  tag_comments: "pressure data faulty"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+16FB:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-05-03"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+16FI:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-05-05 04:00:00"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+16FT:
+  tag_comments: "partial track - ends on 11 april"
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-04-11 03:30:00"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: 1
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+16GA:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-06-08 13:30:00"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 17.05
+        known_lat: 48.90
+
+
+16HB:
+  tag_comments: "ok, full track"
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-04-29 06:00:00"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+16HL:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-05-02 12:00:00"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+
+18HA:
+  tag_comments: "partial track"
   tag_create:
     crop_start: "2017-06-20"
-    crop_end: "2018-05-02"
+    crop_end: "2018-03-23"
   tag_set_map:
+    extent: [-10, 55, -30, 60] # [W, E, S, N]
     known:
-      stap_id: [1, -1] # -1 -> last stap
-      known_lon: 17.05
-      known_lat: 48.9
-  bird_create:
-    scientific_name: "Acrocephalus arundinaceus"
-  graph_set_movement:
-    type: "as" # Needs wind to work, use "gs" otherwise
+        stap_id: 1
+        known_lon: 17.05
+        known_lat: 48.90
 
-CB619:
+
+16HM:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2016-06-20"
+    crop_end: "2017-06-12"
   tag_set_map:
-    extent: [-100, -68, 0, 40] # Usually best define in default if same for all tags
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
     known:
-      stap_id: [1, -1]
-      known_lon: -82.304972
-      known_lat: 37.286812
-  graph_set_movement:
-    movement:
-      type: "gs"
+        stap_id: [1, -1]
+        known_lon: 26.45
+        known_lat: 44.00
+
+18HY:
+  run: FALSE
+  tag_comments: "no usable pressure data"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+18IC:
+  tag_comments: "the activity stopped on 23.04, light has problems from 30.04, pressure seems to have worked until the end. I cropped on 30.04 and used only pressure data (removed acceleration from _labeled file)"
+  tag_create:
+    crop_start: "2017-06-20"
+    crop_end: "2018-04-30"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 17.05
+        known_lat: 48.90
+
+18IJ:
+  run: FALSE
+  tag_comments: "no usable pressure data until return migration, which is  not reliable to use."
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+18IQ:
+  tag_comments: "tag starts with flights on 20 June and stops in January, has no surely known location - I forced the known location as the equipment site and it seems to be adequate"
+  tag_create:
+    crop_start: "2017-06-20 00:30:00"
+    crop_end: "2018-07-30"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: 1
+        known_lon: 17.05
+        known_lat: 48.90
+
+18KA:
+  run: FALSE
+  tag_comments: "pressure faulty"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+
+
+18LD:
+  tag_comments: "reports drift but works"
+  tag_create:
+    crop_start: "2017-06-20"
+    crop_end: "2018-06-28"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 17.05
+        known_lat: 48.90
+
+
+18LX:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2017-06-20"
+    crop_end: "2018-06-02 05:00:00"
+  tag_set_map:
+    extent: [-10, 55, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 17.05
+        known_lat: 48.90
+
+
+18LY:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2017-06-20"
+    crop_end: "2018-06-04"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 17.05
+        known_lat: 48.90
+
+
+18LZ:
+  tag_comments: ""
+  tag_create:
+    crop_start: "2017-06-20"
+    crop_end: "2018-05-07 12:00:00"
+  tag_set_map:
+    extent: [-5, 60, -30, 60] # [W, E, S, N]
+    known:
+        stap_id: [1, -1]
+        known_lon: 17.05
+        known_lat: 48.90
+
+
+19FO:
+  run: FALSE
+  tag_comments: "light only"
+  tag_create:
+    assert_pressure: FALSE
+    pressure_file: ""
+  geopressuretemplate:
+    likelihood: ["map_light"]
+

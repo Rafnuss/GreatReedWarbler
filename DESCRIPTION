@@ -1,31 +1,31 @@
-Package: YourProjectName
-Title: These are the Goals of my Study (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-xxxx-xxxx-xxxx"))
-Description: More detailed description of my research objective and data (one paragraph).
-License: `usethis::use_mit_license()`, `usethis::use_gpl3_license()` or friends to pick a
-    license
+Package: GreatReedWarbler
+Title: Great Reed Warbler tracks from European populations
+URL: https://github.com/yannrime/GreatReedWarbler
+Description: Data and analyses of Great Reed Warbler tracks from different European populations
+Authors@R: c(
+    person("Yann", "Rime", , "yannrime@outlook.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0005-7264-6753"))
+    person("Raphael", "Nussbaumer", , "raphael.nussbaumer@vogelwarte.ch, role "c("aut"))
+    person("Martins", "Briedis", , "martins.briedis@gmail.com", role = c("aut"))
+    person("Tamara", "Emmenegger", , "avianmalaria@gmail.com", role = c("aut"))
+    person("Steffen", "Hahn", , "steffen.m.hahn@vogelwarte.ch", role = c("aut"))
+    person("Petr", "Prochazka", , "prochazka@ivb.cz", role = c("aut"))
+    person("Dmitry", "Kishkinev, , dmitry.kishkinev@gmail.com", role = c("aut")) 
+    person("Silke", "Bauer", , "silke.bauer@wsl.ch, role "c("aut")) )
+
+License: CC BY 4.0
+Version: 1.1
 Depends: 
     R (>= 3.5.0)
 Imports: 
-    config,
-    ecmwfr,
-    GeoLocatoR,
     GeoPressureR,
     ggplot2,
-    here,
+    config,
     knitr,
-    plotly
-Suggests:
-    frictionless,
-    job,
-    keyring,
-    zen4R
+    plotly,
+    rmarkdown
 Remotes: 
-    rafnuss/GeoPressureR,
-    rafnuss/GeoLocatoR
+    rafnuss/GeoPressureR
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
